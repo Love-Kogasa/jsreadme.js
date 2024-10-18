@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <style>
+      body {
+        padding: 5%;
+        background-image : url( "https://t.mwm.moe/mp" );
+        background-size : auto 100%;
+        background-position : center center;
+      }
+      #input {
+        height : 500px;
+        background-color : #235;
+        color : #FFF;
+        text-shadow : 0px 0px 0.5em #FFF;
+        border: none;
+        border-bottom : 3px solid #ACF;
+      }
+      input[type="input"] {
+        background-color : #253;
+        color : #FFF;
+        border: none;
+        border-bottom : 2px solid #AFC;
+      }
+      .card {
+        background-color : #523;
+        //color : #FFF;
+        border: none;
+        border-bottom : 2px solid #FAC;
+      }
+      .card header {
+        color : #FFF;
+      }
+    </style>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/downloadjs/1.4.8/download.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/14.1.3/marked.min.js"></script>
+    <script src="jsreadme.js"></script>
+    <script>function toMD( inp, out, show, setting ){
+      var module = {
+        exports : {}
+      }
+      eval( inp.value )
+      var md = jsreadme( module.exports , setting )
+      out.innerHTML = md
+      show.innerHTML = marked.parse( md )
+    }</script>
+  </head>
+  <body>
+    <nav class="demo button" onclick="(window.location.href = 'https://github.com/Love-Kogasa/jsreadme/')"><h3>JSReadMe JS生成README</h3></nav>
+    <br><br>
+    jsreadme是一个用于将Js对象转换为README.md的js库，支持浏览器和Nodejs<br>
+    本页面为Jsreadme的图形化界面<br>
+    <a href="jsreadme.js" download="jsreadme.js">下载jsreadme.js</a>
+    <hr>
+    <div class="flex two" style="padding : 3%;">
+      <input id="name" type="input" placeholder="模块名" value="MyModule"/>
+      <input id="objname" type="input" placeholder="导出变量名" value="myobject"/>
+      <input id="description" type="input" placeholder="介绍" value="Description"/>
+      <input id="version" type="input" placeholder="版本号" value="Version"/>
+      <input id="author" type="input" placeholder="作者" value="input">
+    </div>
+    <textarea id="input">module.exports = "hello"</textarea>
+    <button onclick="toMD(input, output, show, {
+      name : name.value,
+      objname : objname.value,
+      description: description.value,
+      version : version.value.split( '.' ),
+      author : author.value.split( ' ' )
+    })">生成</button>
+    <hr>
+    <div class="card">
+      <header>
+        <h3>生成结果</h3>
+      </header>
+      <footer>
+        <pre><code id="output"></code></pre>
+        <button class="success" onclick="download( output.innerHTML, 'README.md' )">下载</button>
+      </footer>
+    </div>
+    <hr>
+    <div class="card">
+      <header>
+        <h3>README预览</h3>
+      </header>
+      <footer>
+        <div id="show"></div>
+        <hr>
+        <button class="success" onclick="download( show.innerHTML, 'README.html' )">下载</button>
+      </footer>
+    </div>
+  </body>
+</html>
