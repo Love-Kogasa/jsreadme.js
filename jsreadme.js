@@ -23,8 +23,10 @@ function jsreadme( lib, setting = {} ){
    setting.repo && readme.push( "*Repository* : " + setting.repo )
    return readme.join( "  \n" )
    function toExampleFunc( func ){
-      if( func.toString().match( /[0-9a-zA-Z_\$]+\([^\)]*\)\{/ ) ){
+      if( func.toString().match( /[0-9a-zA-Z_\$]+\([^\)]*\)\s*\{/ ) ){
          return func.toString().slice( 0, func.toString().indexOf( "){" ) + 1 )
+      } else if( func.toString().match( /\bclass\b/ ) ){
+         return func.toString().slice( 0, func.toString().indexOf( "{" ) )
       } else {
          return func.toString().slice( 0, func.toString().indexOf( "=>" ) + 1 )
       }
